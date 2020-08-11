@@ -4,9 +4,9 @@ const Apify = require('apify');
 Apify.main(async () => {
 
     try{
-   
+
         const input = await Apify.getValue('INPUT');
-        // const input = 
+        // const input =
         //        {
         //            appUrl: 'https://play.google.com/store/apps/details?id=com.snapchat.android&hl=en',
         //            //appId: 'com.aparkin.bestwifi',
@@ -19,7 +19,7 @@ Apify.main(async () => {
     }
 
     let url = '';
-   
+
     if (input.appUrl) {
         url = `${input.appUrl}&showAllReviews=true`;
     }
@@ -28,18 +28,18 @@ Apify.main(async () => {
     }
     //const appId = input.appId;
     const limit = input.limit;
-    
+
     if (input.limit > 4000) {
         throw(new Error('Maximum reviews limit is set to 4000.'))
     }
 
     const browser = await Apify.launchPuppeteer();
-   
-    console.log(`Opening URL: ${url}`);  
+
+    console.log(`Opening URL: ${url}`);
     const page = await browser.newPage();
     await page.goto(url);
     await Apify.utils.puppeteer.injectJQuery(page);
- 
+
     let numberOfReviews = await page.evaluate(x => ($('div[jscontroller][jsdata][jsmodel]').not('[jsaction]').get().length));
     if (numberOfReviews < limit)
     {
@@ -59,7 +59,7 @@ Apify.main(async () => {
         }
     }
 
-    console.log('Downloading reviews...');  
+    console.log('Downloading reviews...');
     let reviews = await page.evaluate(x =>
     {
         let reviews=[];
@@ -79,13 +79,13 @@ Apify.main(async () => {
             {
                 return $(this).text();
             });
- 
-            review.name = spans[0];
+
+            review.username = spans[0];
             review.date = spans[2];
             review.rating = rating;
-            review.text = text[text.length-1];
-            if (review.text=='') {
-                review.text = text[text.length-2];
+            review.body = text[text.length-1];
+            if (review.body=='') {
+                review.body = text[text.length-2];
             }
             reviews.push(review);
         })
@@ -94,26 +94,26 @@ Apify.main(async () => {
 
     if (reviews.length > limit)
         reviews = reviews.slice(0, limit);
- 
+
     // Save output
     //const appNameHash = appId.replace(/\./g, '-')
-    
+
     //await Apify.setValue(`Google-play-reviews-${appNameHash}`, reviews);
 
     //const dataset = await Apify.openDataset(`Google-play-reviews-${appNameHash}`);
     //await dataset.pushData(reviews);
-    
+
     await Apify.pushData(reviews);
-           
+
     console.log('Data saved..')
-    
+
 }
 
 catch(err){
 
     console.log(err)
     throw(err)
-   
+
 };
 
 });
