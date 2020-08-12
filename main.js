@@ -80,14 +80,14 @@ Apify.main(async () => {
                 return $(this).text();
             });
 
-            review.username = spans[0];
+            review.name = spans[0];
             // review.date = spans[2];
             review.date = "2011-11-11";
 
-            review.rating = rating;
-            review.body = text[text.length-1];
-            if (review.body=='') {
-                review.body = text[text.length-2];
+            review.rating_value = rating;
+            review.review_text = text[text.length-1];
+            if (review.review_text=='') {
+                review.review_text = text[text.length-2];
             }
             reviews.push(review);
         })
