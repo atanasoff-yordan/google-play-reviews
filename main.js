@@ -81,7 +81,9 @@ Apify.main(async () => {
             });
 
             review.username = spans[0];
-            review.date = spans[2];
+            // review.date = spans[2];
+            review.date = "2011-11-11";
+
             review.rating = rating;
             review.body = text[text.length-1];
             if (review.body=='') {
