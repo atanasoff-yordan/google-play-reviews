@@ -10,7 +10,7 @@ Apify.main(async () => {
                {
                    appUrl: 'https://play.google.com/store/apps/details?id=com.snapchat.android&hl=en',
                    //appId: 'com.aparkin.bestwifi',
-                   limit: 5
+                   limit: 100
                };
 
 
