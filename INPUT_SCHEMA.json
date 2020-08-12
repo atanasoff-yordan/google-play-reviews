@@ -25,6 +25,5 @@
       "prefill": 100,
       "editor": "number"
     }
-  },
-  "required": ["limit"]
+  }
 }

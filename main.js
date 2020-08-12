@@ -5,18 +5,18 @@ Apify.main(async () => {
 
     try{
 
-        const input = await Apify.getValue('INPUT');
-        // const input =
-        //        {
-        //            appUrl: 'https://play.google.com/store/apps/details?id=com.snapchat.android&hl=en',
-        //            //appId: 'com.aparkin.bestwifi',
-        //            limit: 30
-        //        };
+        // const input = await Apify.getValue('INPUT');
+        const input =
+               {
+                   appUrl: 'https://play.google.com/store/apps/details?id=com.snapchat.android&hl=en',
+                   //appId: 'com.aparkin.bestwifi',
+                   limit: 5
+               };
 
 
-    if (input.appUrl == undefined && input.appId == undefined) {
-        throw(new Error('input.appUrl or input.appId must be provided'))
-    }
+    // if (input.appUrl == undefined && input.appId == undefined) {
+    //     throw(new Error('input.appUrl or input.appId must be provided'))
+    // }
 
     let url = '';
 
