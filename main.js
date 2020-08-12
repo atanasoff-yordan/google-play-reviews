@@ -84,7 +84,7 @@ Apify.main(async () => {
             // review.date = spans[2];
             review.date = "2011-11-11";
 
-            review.rating_value = rating;
+            review.rating_value = parseInt(rating);
             review.review_text = text[text.length-1];
             if (review.review_text=='') {
                 review.review_text = text[text.length-2];
